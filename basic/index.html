@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>trivia-game</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="assets/reset.css">
+	<link rel="stylesheet" type="text/css" href="assets/style.css">
+	
+</head>
+<body>
+
+<div id="header">
+	<h1>Trivia Game!!!!</h1>
+</div>
+<br><br><br>
+
+<div id="primary">
+	<h2> Welcome!</h2>
+	<div id="instructions">
+		<p>please answer the following questions to the best of your ability	<br>
+		-You roughly have 10 seconds to answer each question. 
+			<br>
+		-Select your answer and press the "Next" button to move on!
+		</p> 
+	</div>
+	<div id="questions">
+
+		<form class="questions" id="question1">
+			<p>Who's birthday did Harry visit in the Chamber of Secret's?</p>
+
+			<input type="radio" name="question1" value="Draco Malfoy">Draco Malfoy<br>
+			<input type="radio" name="question1" value="Nearly Headless Nick">Nearly Headless Nick<br>
+			<input type="radio" name="question1" value="Dobby">Dobbby<br>
+			<input type="radio" name="question1" value="Shamus">Shamus<br>
+		</form>
+
+		<form class="questions" id="question2">
+			<p>What is Luna Lovegood's patronus?</p>
+
+			<input type="radio" name="question2" value="Stag">Stag<br>
+			<input type="radio"	name="question2" value="Rabbit">Rabbit<br>
+			<input type="radio" name="question2" value="Dobby">Dobbby<br>
+			<input type="radio" name="question2" value="Dog">Dog<br>
+		</form>
+
+		<form class="questions" id="question4">
+			<p>Which wand belongs to harry?</p>
+			
+			<span id="wand-span">
+				<input type="radio" name="question3" value="hermione">
+					<img src="assets/images/wand-1.jpg" alt="image of a magic wand" class="wands"><br>
+				<input type="radio"	name="question3" value="not sure">
+					<img src="assets/images/wand-two.jpg" alt="image of a magic wand" class="wands"><br>
+				<input type="radio" name="question3" value="harry potter">
+					<img src="assets/images/wand-3.jpg" alt="image of a magic wand" class="wands"><br>
+				<input type="radio" name="question3" value="doesn't matter">
+					<img src="assets/images/wand-4.jpg" alt="image of a magic wand" class="wands"><br>
+			</span>
+		</form>
+
+
+	</div>
+</div>
+
+
+
+<div id="footer">
+	<button >Submit</button>
+	<button>Reset</button>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script type="text/javascript" src= "assets/script.js"></script>
+
+</body>
+</html>

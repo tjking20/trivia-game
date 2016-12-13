@@ -1,0 +1,36 @@
+/*build background image
+build welcome div screen
+build a standard div class for questions. */
+
+
+#header{
+	margin-top: 40px;
+	font-size:38px;
+	font-family: chalkboard;
+}
+
+#primary{
+	height: 1000px;
+	width: 1000px;
+	overflow-y: auto;
+	border: 2px solid black;
+	background: url(images/red-background.jpeg);
+	font-size: 18px;
+	color: white;
+}
+
+.btn{
+	color: #F49727;
+}
+
+.questions{
+	border-bottom: 1px solid white;
+	margin-right: 20px;
+	margin-left: 20px;	
+}
+
+.wands{
+	height: 150px;
+	width: 150px;
+	margin-left: 30px;
+}
