@@ -6,7 +6,7 @@ var triviaOptions =  [{
 	choices: ["blue","green","brown"],
 	correctChoice: "0"
 }, {
-	question: "what is your favorite color for shirts?",
+	question: "what is the color of the sky?",
 	choices: ["blue","green","brown"],
 	correctChoice: "0"
 }, {
