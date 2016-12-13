@@ -38,14 +38,18 @@ function nextQuestion(){
 		}
 
 		questionCount++;
+		currentQuestion = triviaOptions[questionCount];
+		debugger;
+
 }
 
-$("#submit").on("click", function(){
-	nextQuestion();
-});
+// $("#submit").on("click", function(){
+// 	nextQuestion();
+// });
 
 
-$(".answerButtons").on("click", function(){
+$("button").on("click", function(){
+	// currentQuestion = triviaOptions[questionCount];
 
 	if(userInput == currentQuestion.correctChoice){
 		correctCount++;
@@ -70,3 +74,7 @@ $(".answerButtons").on("click", function(){
 
 
 }); // this jawn closes the .ready() event listener. leave this fucker alone.
+
+
+
+
