@@ -7,26 +7,31 @@ var triviaOptions =  [{
 	correctChoice: "0"
 }, {
 	question: "what is the color of the sky?",
-	choices: ["blue","green","brown"],
+	choices: ["gold","black","red"],
 	correctChoice: "0"
 }, {
 	question: "what type of bear is best?",
 	choices: ["black","polar","brown"],
 	correctChoice: "1"
+}, {
+	question: "what type of beet is best",
+	choices: ["black","polar","brown"],
+	correctChoice: "1"
 }];
 
 
-
-var userInput = $(this).val();
 var questionCount = 0;
 var currentQuestion = triviaOptions[questionCount];
 var choices = currentQuestion.choices;
 var correctCount = 0;
-var incorrectCount = -1;
+var incorrectCount = 0;
 
 function nextQuestion(){
+	
+		currentQuestion = triviaOptions[questionCount];//does it make a difference if 
+		
+		//it is in the nexQuestion function or in the buttonClick function?
 		$("#questions").empty(); //this empties the questions div of any previous contents
-		// $("#submit").text("submit"); //changes the start button to turn into a submit button
 		$("#questions").append("<h2>" + currentQuestion.question + "</h2>" );
 
 		for (var j = 0; j < choices.length; j++){
@@ -37,43 +42,110 @@ function nextQuestion(){
 			$("#questions").append(buttons);
 		}
 
+		addAnswerClickEvents();
+
 		questionCount++;
-		currentQuestion = triviaOptions[questionCount];
-		debugger;
+
+		$("#endQuiz").empty();
+		var quitButton = $("<button>").attr("id","quit").text("Quit");
+		$("#endQuiz").append(quitButton);
+		$("#quit").on("click", function(){
+			$("#questions").empty(); 
+			$("#questions")
+			.append("<h2>Game Over</h2>")
+			.append("<p> Correct: "+ correctCount +"</p>")
+			.append("<p> incorrect: "+ incorrectCount +"</p>");
+			$("#quit").text("Reset")
+			$("#quit").on("click", function(){
+				reset();
+			});
+		});
+			
+	
 
 }
 
-// $("#submit").on("click", function(){
-// 	nextQuestion();
-// });
 
+$('#start').click(nextQuestion)
 
-$("button").on("click", function(){
+function addAnswerClickEvents() {
+	$("button.answerButtons").on("click", function(){
 	// currentQuestion = triviaOptions[questionCount];
 
-	if(userInput == currentQuestion.correctChoice){
+	if($(this).val() == currentQuestion.correctChoice){
 		correctCount++;
-		console.log(correctCount);
-		nextQuestion();
 	} else{
 		incorrectCount++;
-		console.log(incorrectCount);
-		nextQuestion();
 	}
+	
+	
+	
+	nextQuestion();
+
 
 });
 
+}
+
+function reset(){
+var questionCount = 0;
+var currentQuestion = triviaOptions[questionCount];
+var correctCount = 0;
+var incorrectCount = 0;
+
+nextQuestion();
+
+}
+
+// var questionCount = 0;
+// var currentQuestion = triviaOptions[questionCount];
+// var choices = currentQuestion.choices;
+// var correctCount = 0;
+// var incorrectCount = -1;
+
+// function nextQuestion(){
+// console.log(currentQuestion.question)
+
+// questionCount++;
+// currentQuestion = triviaOptions[questionCount];
+
+
+// }
+
+// nextQuestion()
+// nextQuestion()
+// nextQuestion()
+
+
+
+    // var currentQuestion = 0; //start at the first index of the questions array
+
+    // var question = questions[currentQuestion]; //choose the first question
+    
+    // //display the first question on the page
+    // $('body').append(question.question);
+
+    // for (var i=0; i<question.choices.length; i++){
+    //     var button = $('<button>').text(question.choices[i]).attr('data-val', i);
+    //     $('body').append(button);
+    // }
+
+    // $('button').on('click', function(){
+    //     if ($(this).data('val') == question.correctChoice){
+    //         alert('correct');
+    //     }else{
+    //         alert('loser');
+    //     }
+
+    //     currentQuestion++; //increment to the next question
+    // })
 
 
 
 
 
 
-
-
-
-
-}); // this jawn closes the .ready() event listener. leave this fucker alone.
+}); // this jawn closes the .ready() leave this fucker alone.
 
 
 
