@@ -1,6 +1,11 @@
+body{
+	font-size: 18px;
+}
+
 .answerButtons{
-	width: 50px;
-	height: 30px;
+	width: 120px;
+	height: 80px;
+	font-size: 14px;
 }
 #quitButton{
 	width: 50px;

@@ -2,21 +2,21 @@ $('document').ready(function(){
 
 // Object of with questions and answers to be pushed into the correct array. 
 var triviaOptions =  [{
-	question: "What is your favorite color?",
-	choices: ["blue","green","brown"],
+	question: "How many great rings were forged?",
+	choices: ["20","9","1", "19"],
 	correctChoice: "0"
 }, {
-	question: "what is the color of the sky?",
-	choices: ["gold","black","red"],
-	correctChoice: "0"
+	question: "What gift did Galadriel give to Gimli?",
+	choices: ["Elvish rope","A dagger","Three strands of her hair", "An axe"],
+	correctChoice: "2"
 }, {
-	question: "what type of bear is best?",
-	choices: ["black","polar","brown"],
+	question: "What is Gollum's original name?",
+	choices: ["Frodo","Smeagol","Bilbo","Sam"],
 	correctChoice: "1"
 }, {
-	question: "what type of beet is best",
-	choices: ["black","polar","brown"],
-	correctChoice: "1"
+	question: "Challenge Question: In the book, FellowShip of the Ring, who leads Frodo to Buckleberry Ferry?",
+	choices: ["Sam","Merry and Pippen","Farmer Maggot", "Gandalf"],
+	correctChoice: "2"
 }];
 
 
@@ -25,15 +25,17 @@ var currentQuestion = triviaOptions[questionCount];
 var choices = currentQuestion.choices;
 var correctCount = 0;
 var incorrectCount = 0;
+var gameStop = 0;
 
 function nextQuestion(){
 	
-		currentQuestion = triviaOptions[questionCount];//does it make a difference if 
-		
-		//it is in the nexQuestion function or in the buttonClick function?
-		$("#questions").empty(); //this empties the questions div of any previous contents
-		$("#questions").append("<h2>" + currentQuestion.question + "</h2>" );
+		currentQuestion = triviaOptions[questionCount];//sets the value of currentQuestion
+		choices = currentQuestion.choices
+		$("#questions").empty(); //empties the questions div of any previous contents
 
+
+		// line 34-42 selec the current question and answer buttons.
+		$("#questions").append("<h2>" + currentQuestion.question + "</h2>" );
 		for (var j = 0; j < choices.length; j++){
 			var buttons = $("<button>")
 			.val(j)
@@ -44,108 +46,106 @@ function nextQuestion(){
 
 		addAnswerClickEvents();
 
-		questionCount++;
-
-		$("#endQuiz").empty();
-		var quitButton = $("<button>").attr("id","quit").text("Quit");
-		$("#endQuiz").append(quitButton);
-		$("#quit").on("click", function(){
-			$("#questions").empty(); 
-			$("#questions")
-			.append("<h2>Game Over</h2>")
-			.append("<p> Correct: "+ correctCount +"</p>")
-			.append("<p> incorrect: "+ incorrectCount +"</p>");
-			$("#quit").text("Reset")
-			$("#quit").on("click", function(){
-				reset();
-			});
-		});
-			
+		questionCount++;//increments questionCount, and changes currentAnswer
+		endQuiz();
+		
 	
 
 }
 
-
-$('#start').click(nextQuestion)
-
-function addAnswerClickEvents() {
-	$("button.answerButtons").on("click", function(){
-	// currentQuestion = triviaOptions[questionCount];
-
-	if($(this).val() == currentQuestion.correctChoice){
-		correctCount++;
-	} else{
-		incorrectCount++;
-	}
-	
-	
-	
+// when start button is clicked on the welcome screen, it loads the first question.
+$('#start').on("click", function(){
 	nextQuestion();
-
-
+	timer();
 });
 
+
+
+//gives value to the .answerButton click events.
+function addAnswerClickEvents() {
+	$("button.answerButtons").on("click", function(){
+
+		if($(this).val() == currentQuestion.correctChoice){
+			correctCount++;
+		} else{
+			incorrectCount++;
+		}
+
+		if(currentQuestion > triviaOptions.length){
+			summarPage();
+		}
+
+		nextQuestion();
+
+	});
+
 }
 
+
+// The reset function resets all game values, and starts the client back at question 1.
+
 function reset(){
-var questionCount = 0;
-var currentQuestion = triviaOptions[questionCount];
-var correctCount = 0;
-var incorrectCount = 0;
+questionCount = 0;
+currentQuestion = triviaOptions[questionCount];
+choices = currentQuestion.choices;
+correctCount = 0;
+incorrectCount = 0;
 
 nextQuestion();
 
 }
 
-// var questionCount = 0;
-// var currentQuestion = triviaOptions[questionCount];
-// var choices = currentQuestion.choices;
-// var correctCount = 0;
-// var incorrectCount = -1;
+function summaryPage(){
+	$("#questions").empty(); 
+	gameStop++;
+	$("#timerDisplay").html("<h3>Time's Up!</h3>");
 
-// function nextQuestion(){
-// console.log(currentQuestion.question)
+	$("#questions")
+	.append("<h2>Game Over</h2>")
+	.append("<p> Correct: "+ correctCount +"</p>")
+	.append("<p> incorrect: "+ incorrectCount +"</p>");
+	$("#quit").text("Reset")
+	$("#quit").on("click", function(){
+		reset();
+	});
+}
 
-// questionCount++;
-// currentQuestion = triviaOptions[questionCount];
-
-
-// }
-
-// nextQuestion()
-// nextQuestion()
-// nextQuestion()
-
-
-
-    // var currentQuestion = 0; //start at the first index of the questions array
-
-    // var question = questions[currentQuestion]; //choose the first question
-    
-    // //display the first question on the page
-    // $('body').append(question.question);
-
-    // for (var i=0; i<question.choices.length; i++){
-    //     var button = $('<button>').text(question.choices[i]).attr('data-val', i);
-    //     $('body').append(button);
-    // }
-
-    // $('button').on('click', function(){
-    //     if ($(this).data('val') == question.correctChoice){
-    //         alert('correct');
-    //     }else{
-    //         alert('loser');
-    //     }
-
-    //     currentQuestion++; //increment to the next question
-    // })
+function endQuiz(){
+	$("#endQuiz").empty();//empties the endQuiz div
+	var quitButton = $("<button>").attr("id","quit").text("Quit");
+	$("#endQuiz").append(quitButton);
+	$("#quit").on("click", summaryPage);
+		
+}
 
 
+function timer(){
+	var counter = 30;
+	function timerDisplay(){
+		$("#timerDisplay").html("<h3>Seconds Left: " + counter +  "</h3>");
+	}
+	timerDisplay();
+	var interval = setInterval(function() {
+	    counter--;
+	    if (counter >= 0){
+	    	timerDisplay();
+	    } if (counter == 0) {
+	        clearInterval(interval);
+	        summaryPage();
+
+	    } if (gameStop > 0){
+
+	    	clearInterval(interval);
+	    }
+
+
+	}, 1000);
+
+}
 
 
 
-
-}); // this jawn closes the .ready() leave this fucker alone.
+}); 
 
 
 
